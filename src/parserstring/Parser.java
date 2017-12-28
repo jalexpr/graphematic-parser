@@ -7,7 +7,7 @@ public class Parser {
 
     public static List<String> parserBasicsPhase(String basicsPhase) throws RuntimeException {
 
-        basicsPhase = basicsPhase.replaceAll("[^а-я^А-Я^-^0-9]", " ");
+        basicsPhase = basicsPhase.replaceAll("[^а-я^А-Я^-^0-9^ё^-]", " ");
 
         LinkedList<String> strList = new LinkedList<>();
 
