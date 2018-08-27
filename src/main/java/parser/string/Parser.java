@@ -1,10 +1,9 @@
-package parserstring;
+package parser.string;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Parser {
-
     public static List<String> parserBasicsPhase(String basicsPhase) throws RuntimeException {
 
         basicsPhase = basicsPhase.replaceAll("[^а-я^А-Я^-^0-9^ё^-]", " ");
@@ -74,5 +73,4 @@ public class Parser {
 
         return textList;
     }
-
 }

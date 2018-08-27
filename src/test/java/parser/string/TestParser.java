@@ -1,15 +1,15 @@
+package parser.string;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import org.junit.After;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
-import parserstring.Parser;
 
 public class TestParser {
-
     HashMap<String, String[]> parserBasicsPhase = new HashMap<>();
     HashMap<String, String[][]> parserSentence = new HashMap<>();
     HashMap<String, String[][][]> parserParagrap = new HashMap<>();
@@ -63,7 +63,8 @@ public class TestParser {
         for (String word : actual) {
             assertEquals(expected[index], word);
             index++;
-        };
+        }
+        ;
     }
 
     @Test
@@ -82,7 +83,8 @@ public class TestParser {
         for (List<String> basicsPhase : actual) {
             testParserBasicsPhase(basicsPhase, expected[indexX]);
             indexX++;
-        };
+        }
+        ;
     }
 
     @Test
@@ -94,7 +96,7 @@ public class TestParser {
             testParserParagraph(actual, expected);
         });
     }
-    
+
     public void testParserParagraph(List<List<List<String>>> actual, String[][][] expected) {
         assertEquals(expected.length, actual.size());
         int indexX = 0;
