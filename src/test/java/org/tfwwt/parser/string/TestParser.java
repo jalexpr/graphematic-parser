@@ -1,4 +1,4 @@
-package parser.string;
+package org.tfwwt.parser.string;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package parser.string;
+package org.tfwwt.parser.string;
 
 import java.util.LinkedList;
 import java.util.List;
