@@ -1,4 +1,4 @@
-package org.tfwwt.parser.string;
+package ru.textanalysis.tfwwt.parser.string;
 
 import java.util.LinkedList;
 import java.util.List;
