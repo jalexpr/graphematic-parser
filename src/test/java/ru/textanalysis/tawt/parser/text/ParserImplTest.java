@@ -1,23 +1,21 @@
-package ru.textanalysis.tfwwt.parser.string;
+package ru.textanalysis.tawt.parser.text;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Ignore
-public class TestParser {
-    HashMap<String, String[]> parserBasicsPhase = new HashMap<>();
-    HashMap<String, String[][]> parserSentence = new HashMap<>();
-    HashMap<String, String[][][]> parserParagrap = new HashMap<>();
+public class ParserImplTest {
+    private static HashMap<String, String[]> parserBasicsPhase = new HashMap<>();
+    private static HashMap<String, String[][]> parserSentence = new HashMap<>();
+    private static HashMap<String, String[][][]> parserParagrap = new HashMap<>();
 
-    @Before
-    public void setParserBasicsPhase() {
+    @BeforeAll
+    public static void setParserBasicsPhase() {
         parserBasicsPhase.put("Привет как дела", new String[]{"Привет", "как", "дела"});
         parserBasicsPhase.put("Привет как дела!", new String[]{"Привет", "как", "дела"});
         parserBasicsPhase.put("Привет как дела! ", new String[]{"Привет", "как", "дела"});
@@ -43,7 +41,7 @@ public class TestParser {
         parserParagrap.put(" Привет как дела,,,, как жизнь?! Чем обычно занимаешь?  Привет как дела,,,, как жизнь?! Чем обычно занимаешь? ", new String[][][]{{{"Привет", "как", "дела"}, {"как", "жизнь"}}, {{"Чем", "обычно", "занимаешь"}}, {{"Привет", "как", "дела"}, {"как", "жизнь"}}, {{"Чем", "обычно", "занимаешь"}}});
     }
 
-    @After
+    @AfterEach
     public void tear() {
         parserBasicsPhase.clear();
         parserSentence.clear();
@@ -51,10 +49,11 @@ public class TestParser {
 
     @Test
     public void testParserBasicsPhase() {
+        ParserImpl parser = new ParserImpl();
         parserBasicsPhase.entrySet().forEach((entry) -> {
             final String[] expected = entry.getValue();
             final String testData = entry.getKey();
-            final List<String> actual = Parser.parserBasicsPhase(testData);
+            final List<String> actual = parser.parserBasicsPhase(testData);
             testParserBasicsPhase(actual, expected);
         });
     }
@@ -71,10 +70,11 @@ public class TestParser {
 
     @Test
     public void testParserSentence() {
+        ParserImpl parser = new ParserImpl();
         parserSentence.entrySet().forEach((entry) -> {
             final String[][] expected = entry.getValue();
             final String testData = entry.getKey();
-            final List<List<String>> actual = Parser.parserSentence(testData);
+            final List<List<String>> actual = parser.parserSentence(testData);
 //            testParserParagraph(actual, expected);todo
         });
     }
@@ -91,10 +91,11 @@ public class TestParser {
 
     @Test
     public void testParserParagraph() {
+        ParserImpl parser = new ParserImpl();
         parserParagrap.entrySet().forEach((entry) -> {
             final String[][][] expected = entry.getValue();
             final String testData = entry.getKey();
-            final List<List<List<String>>> actual = Parser.parserParagraph(testData);
+            final List<List<List<String>>> actual = parser.parserParagraph(testData);
             testParserParagraph(actual, expected);
         });
     }
