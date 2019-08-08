@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>parser</artifactId>
-    <version>0.0.1</version>
+    <version>${version.tawt.parser}</version>
 
     <parent>
         <artifactId>tawt-parent</artifactId>
