@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>TAWT graphematic-parser</name>
+    <name>TAWT Graphematic Parser</name>
     <artifactId>graphematic-parser</artifactId>
     <packaging>jar</packaging>
     <version>${version.tawt.graphematic-parser}</version>
 
     <parent>
-        <artifactId>tawt-parent</artifactId>
         <groupId>ru.textanalysis.tawt</groupId>
+        <artifactId>tawt-parent</artifactId>
         <version>0.0.2</version>
     </parent>
 
