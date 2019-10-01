@@ -1,7 +1,7 @@
-package ru.textanalysis.tawt.parser;
+package ru.textanalysis.tawt.graphematic.parser;
 
-import ru.textanalysis.tawt.parser.exception.NotParserTextException;
-import ru.textanalysis.tawt.parser.text.ParserImpl;
+import ru.textanalysis.tawt.graphematic.parser.exception.NotParserTextException;
+import ru.textanalysis.tawt.graphematic.parser.text.ParserImpl;
 
 import java.util.List;
 

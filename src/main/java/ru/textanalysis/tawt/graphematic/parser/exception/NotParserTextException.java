@@ -1,4 +1,4 @@
-package ru.textanalysis.tawt.parser.exception;
+package ru.textanalysis.tawt.graphematic.parser.exception;
 
 public class NotParserTextException extends ParserException {
     public NotParserTextException(String message) {

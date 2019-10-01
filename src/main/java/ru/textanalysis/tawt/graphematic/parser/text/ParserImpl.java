@@ -1,8 +1,8 @@
-package ru.textanalysis.tawt.parser.text;
+package ru.textanalysis.tawt.graphematic.parser.text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.textanalysis.tawt.parser.exception.NotParserTextException;
+import ru.textanalysis.tawt.graphematic.parser.exception.NotParserTextException;
 
 import java.util.LinkedList;
 import java.util.List;

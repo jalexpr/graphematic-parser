@@ -1,4 +1,4 @@
-package ru.textanalysis.tawt.parser.text;
+package ru.textanalysis.tawt.graphematic.parser.text;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
