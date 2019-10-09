@@ -9,14 +9,16 @@ public class ExampleParser {
     public static void main(String...args) throws NotParserTextException {
         String sentence;
         if (args == null || args.length == 0) {
-            sentence = "Parser - это программа " +
-                    "начального анализа естественного текста, представленного в виде цепочки ASCII " +
-                    "символов, вырабатывающая информацию, необходимую для дальнейшей обработки";
+            sentence = "Осенний марафон: стало ясно, " +
+                    "что будет с российской валюто. Справедливый курс, по мнению " +
+                    "аналитиков, — на уровне 65-66.";
         } else {
             sentence = args[0];
         }
         ParserImpl parser = new ParserImpl();
-        List<List<String>> listBasicsPhase = parser.parserSentence(sentence);
+        List<List<List<String>>> listBasicsPhase = parser.parserParagraph("Осенний марафон -"
+                + " стало ясно, что будет с российской валютой. Справедливый курс,"
+                + " по мнению аналитиков, — на уровне 65-66.");
         System.out.println(listBasicsPhase);
     }
 }
