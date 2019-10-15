@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserImplTest {
+public class GParserImplTest {
     private static HashMap<String, String[]> parserBasicsPhase = new HashMap<>();
     private static HashMap<String, String[][]> parserSentence = new HashMap<>();
     private static HashMap<String, String[][][]> parserParagrap = new HashMap<>();
@@ -49,7 +49,7 @@ public class ParserImplTest {
 
     @Test
     public void testParserBasicsPhase() {
-        ParserImpl parser = new ParserImpl();
+        GParserImpl parser = new GParserImpl();
         parserBasicsPhase.entrySet().forEach((entry) -> {
             final String[] expected = entry.getValue();
             final String testData = entry.getKey();
@@ -70,7 +70,7 @@ public class ParserImplTest {
 
     @Test
     public void testParserSentence() {
-        ParserImpl parser = new ParserImpl();
+        GParserImpl parser = new GParserImpl();
         parserSentence.entrySet().forEach((entry) -> {
             final String[][] expected = entry.getValue();
             final String testData = entry.getKey();
@@ -91,7 +91,7 @@ public class ParserImplTest {
 
     @Test
     public void testParserParagraph() {
-        ParserImpl parser = new ParserImpl();
+        GParserImpl parser = new GParserImpl();
         parserParagrap.entrySet().forEach((entry) -> {
             final String[][][] expected = entry.getValue();
             final String testData = entry.getKey();
