@@ -1,7 +1,9 @@
 # Parser
 
 #### Создание объекта парсера
+```
 GraphematicParser parser = new GParserImpl();
+```
 
 #### Пример 1
 ```
@@ -21,13 +23,15 @@ System.out.println(listBasicPhase);
 ```
 
 #### Пример 2
-
+```
 List<List<List<String>>> listBasicsPhase = parser.parserParagraph("Осенний марафон -"
 	+ " стало ясно, что будет с российской валютой. Справедливый курс,"
 	+ " по мнению аналитиков, — на уровне 65-66.");
 System.out.println(listBasicsPhase);
+```
 
 #### Вывод
+```
 [
 	[
 		[Осенний, марафон, -, стало, ясно], 
@@ -39,3 +43,4 @@ System.out.println(listBasicsPhase);
 		[на, уровне, 65-66]
 	]
 ]
+```
