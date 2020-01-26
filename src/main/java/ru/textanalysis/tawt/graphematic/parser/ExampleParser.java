@@ -11,9 +11,9 @@ public class ExampleParser {
     public static void main(String... args) throws NotParserTextException {
         {
             GraphematicParser parser = new GParserImpl();
-            List<List<String>> listBasicPhase = parser.parserSentence("Parser - это программа"
-                    + " начального анализа естественного текста, представленного в виде цепочки"
-                    + " символов, вырабатывающая информацию, необходимую для дальнейшей обработки.");
+            List<List<String>> listBasicPhase = parser.parserSentence("Graphematic Parser - это программа"
+                    + " начального анализа естественно-языкового текста, рассматривающая его как цепочку"
+                    + " символов для получения информации, необходимой для следующих этапов анализа.");
             System.out.println(listBasicPhase);
         }
 
