@@ -8,93 +8,94 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GParserImpl implements GraphematicParser {
-    private Logger log = LoggerFactory.getLogger(getClass());
 
-    public GParserImpl() {
-        log.debug("TAWT Parser is inited!");
-    }
+	private Logger log = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public List<String> parserBasicsPhase(String basicsPhase) throws NotParserTextException {
-        basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ё]", " ");
+	public GParserImpl() {
+		log.debug("TAWT Parser is inited!");
+	}
 
-        LinkedList<String> strList = new LinkedList<>();
+	@Override
+	public List<String> parserBasicsPhase(String basicsPhase) throws NotParserTextException {
+		basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ё]", " ");
 
-        for (String str : basicsPhase.split(" ")) {
-            if (!str.equals("")) {
-                strList.add(str);
-            }
-        }
+		LinkedList<String> strList = new LinkedList<>();
 
-        if (strList.isEmpty()) {
+		for (String str : basicsPhase.split(" ")) {
+			if (!str.equals("")) {
+				strList.add(str);
+			}
+		}
+
+		if (strList.isEmpty()) {
 //            throw new NotParserTextException("Передана пустая строка");
-        }
-        return strList;
-    }
+		}
+		return strList;
+	}
 
-    @Override
-    public List<List<String>> parserSentence(String sentence) throws NotParserTextException {
-        sentence = sentence.replaceAll("[@\"№#;$%^:&*()!?.]", ",");
+	@Override
+	public List<List<String>> parserSentence(String sentence) throws NotParserTextException {
+		sentence = sentence.replaceAll("[@\"№#;$%^:&*()!?.]", ",");
 
-        List<List<String>> sentenceList = new LinkedList<>();
+		List<List<String>> sentenceList = new LinkedList<>();
 
-        for (String basicsPhase : sentence.split(",")) {
-            basicsPhase = basicsPhase.trim();
-            if (!basicsPhase.equals("")) {
-                try {
-                    sentenceList.add(parserBasicsPhase(basicsPhase));
-                } catch (NotParserTextException ex) {
+		for (String basicsPhase : sentence.split(",")) {
+			basicsPhase = basicsPhase.trim();
+			if (!basicsPhase.equals("")) {
+				try {
+					sentenceList.add(parserBasicsPhase(basicsPhase));
+				} catch (NotParserTextException ex) {
 //                    log.debug("Sentence = {}, exception: {}", sentence, ex.getMessage());
-                }
-            }
-        }
+				}
+			}
+		}
 
-        if (sentenceList.isEmpty()) {
+		if (sentenceList.isEmpty()) {
 //            throw new NotParserTextException("Передана пустая строка");
-        }
+		}
 
-        return sentenceList;
-    }
+		return sentenceList;
+	}
 
-    @Override
-    public List<List<List<String>>> parserParagraph(String paragraph) throws NotParserTextException {
-        List<List<List<String>>> paragraphList = new LinkedList<>();
+	@Override
+	public List<List<List<String>>> parserParagraph(String paragraph) throws NotParserTextException {
+		List<List<List<String>>> paragraphList = new LinkedList<>();
 
-        for (String sentence : paragraph.split("[@\"№#;$%^:&*()!?.]")) {
-            if (!sentence.equals("")) {
-                try {
-                    paragraphList.add(parserSentence(sentence));
-                } catch (NotParserTextException ex) {
+		for (String sentence : paragraph.split("[@\"№#;$%^:&*()!?.]")) {
+			if (!sentence.equals("")) {
+				try {
+					paragraphList.add(parserSentence(sentence));
+				} catch (NotParserTextException ex) {
 //                    log.debug("Paragraph = {}, exception: {}", sentence, ex.getMessage());
-                }
-            }
-        }
+				}
+			}
+		}
 
-        if (paragraphList.isEmpty()) {
+		if (paragraphList.isEmpty()) {
 //            throw new NotParserTextException("Передана пустая строка");
-        }
+		}
 
-        return paragraphList;
-    }
+		return paragraphList;
+	}
 
-    @Override
-    public List<List<List<List<String>>>> parserText(String text) throws NotParserTextException {
-        List<List<List<List<String>>>> textList = new LinkedList<>();
+	@Override
+	public List<List<List<List<String>>>> parserText(String text) throws NotParserTextException {
+		List<List<List<List<String>>>> textList = new LinkedList<>();
 
-        for (String paragraph : text.split("[\\r\\n]")) {
-            if (!paragraph.equals("")) {
-                try {
-                    textList.add(parserParagraph(paragraph));
-                } catch (NotParserTextException ex) {
+		for (String paragraph : text.split("[\\r\\n]")) {
+			if (!paragraph.equals("")) {
+				try {
+					textList.add(parserParagraph(paragraph));
+				} catch (NotParserTextException ex) {
 //                    log.debug("Text = {}, exception: {}", text, ex.getMessage());
-                }
-            }
-        }
+				}
+			}
+		}
 
-        if (textList.isEmpty()) {
+		if (textList.isEmpty()) {
 //            throw new NotParserTextException("Передана пустая строка");
-        }
+		}
 
-        return textList;
-    }
+		return textList;
+	}
 }
