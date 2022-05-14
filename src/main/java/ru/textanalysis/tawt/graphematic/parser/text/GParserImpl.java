@@ -17,12 +17,12 @@ public class GParserImpl implements GraphematicParser {
 
 	@Override
 	public List<String> parserBasicsPhase(String basicsPhase) throws NotParserTextException {
-		basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ё]", " ");
+		basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ёЁa-zA-Z]", " ");
 
 		LinkedList<String> strList = new LinkedList<>();
 
 		for (String str : basicsPhase.split(" ")) {
-			if (!str.equals("")) {
+			if (!str.isBlank()) {
 				strList.add(str);
 			}
 		}
@@ -41,7 +41,7 @@ public class GParserImpl implements GraphematicParser {
 
 		for (String basicsPhase : sentence.split(",")) {
 			basicsPhase = basicsPhase.trim();
-			if (!basicsPhase.equals("")) {
+			if (!basicsPhase.isBlank()) {
 				try {
 					sentenceList.add(parserBasicsPhase(basicsPhase));
 				} catch (NotParserTextException ex) {
@@ -62,7 +62,7 @@ public class GParserImpl implements GraphematicParser {
 		List<List<List<String>>> paragraphList = new LinkedList<>();
 
 		for (String sentence : paragraph.split("[@\"№#;$%^:&*()!?.]")) {
-			if (!sentence.equals("")) {
+			if (!sentence.isBlank()) {
 				try {
 					paragraphList.add(parserSentence(sentence));
 				} catch (NotParserTextException ex) {
@@ -83,7 +83,7 @@ public class GParserImpl implements GraphematicParser {
 		List<List<List<List<String>>>> textList = new LinkedList<>();
 
 		for (String paragraph : text.split("[\\r\\n]")) {
-			if (!paragraph.equals("")) {
+			if (!paragraph.isBlank()) {
 				try {
 					textList.add(parserParagraph(paragraph));
 				} catch (NotParserTextException ex) {
