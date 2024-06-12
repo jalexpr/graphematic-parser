@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.textanalysis.tawt.graphematic.parser.exception.NotParserTextException;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +34,10 @@ public class GParserImpl implements GraphematicParser {
 		return strList;
 	}
 
-	@Override
+	public List<String> parserBasicsPhaseWithPunctuation(String basicsPhase) {
+		return new LinkedList<>(Arrays.asList(basicsPhase.split("(?<=(\n))|((?<![\\p{L}\\p{N}_-])|(?![\\p{L}\\p{N}_-]))((?<![,./])|(?!(\\p{N})))")));
+	}
+
 	public List<List<String>> parserSentence(String sentence) throws NotParserTextException {
 		sentence = sentence.replaceAll("[@\"№#;$%^:&*()!?.]", ",");
 
@@ -57,6 +61,16 @@ public class GParserImpl implements GraphematicParser {
 		return sentenceList;
 	}
 
+	public List<List<String>> parserSentenceWithPunctuation(String sentence) {
+		List<List<String>> phraseList = new LinkedList<>();
+
+		for (String basicsPhase : sentence.split("(?=(\n)|(?<=[,.!?–;:])(?!(\\p{N}))|(?=[,.!?–;:\n])(?<!(\\p{N})))")) {
+			phraseList.add(parserBasicsPhaseWithPunctuation(basicsPhase));
+		}
+
+		return phraseList;
+	}
+
 	@Override
 	public List<List<List<String>>> parserParagraph(String paragraph) throws NotParserTextException {
 		List<List<List<String>>> paragraphList = new LinkedList<>();
@@ -78,6 +92,16 @@ public class GParserImpl implements GraphematicParser {
 		return paragraphList;
 	}
 
+	public List<List<List<String>>> parserParagraphWithPunctuation(String paragraph) {
+		List<List<List<String>>> sentenceList = new LinkedList<>();
+
+		for (String sentence : paragraph.split("(?=(\n)|(?<=[.!?])(?!(\\p{N}))|(?=[.!?\n])(?<!(\\p{N})))")) {
+			sentenceList.add(parserSentenceWithPunctuation(sentence));
+		}
+
+		return sentenceList;
+	}
+
 	@Override
 	public List<List<List<List<String>>>> parserText(String text) throws NotParserTextException {
 		List<List<List<List<String>>>> textList = new LinkedList<>();
@@ -97,5 +121,15 @@ public class GParserImpl implements GraphematicParser {
 		}
 
 		return textList;
+	}
+
+	public List<List<List<List<String>>>> parserTextWithPunctuation(String text) {
+		List<List<List<List<String>>>> paragraphList = new LinkedList<>();
+
+		for (String paragraph : text.split("(?=(\n))")) {
+			paragraphList.add(parserParagraphWithPunctuation(paragraph));
+		}
+
+		return paragraphList;
 	}
 }
