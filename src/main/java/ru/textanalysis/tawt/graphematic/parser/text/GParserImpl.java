@@ -17,25 +17,25 @@ public class GParserImpl implements GraphematicParser {
 
 	@Override
 	public List<String> parserBasicsPhase(String basicsPhase) throws NotParserTextException {
-		basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ёЁa-zA-Z]", " ");
+		basicsPhase = basicsPhase.replaceAll("[^а-яА-Я\\-0-9ёЁa-zA-Z]+", " ");
 
-		LinkedList<String> strList = new LinkedList<>();
+		LinkedList<String> words = new LinkedList<>();
 
 		for (String str : basicsPhase.split(" ")) {
 			if (!str.isBlank()) {
-				strList.add(str);
+				words.add(str);
 			}
 		}
 
-		if (strList.isEmpty()) {
+		if (words.isEmpty()) {
 //            throw new NotParserTextException("Передана пустая строка");
 		}
-		return strList;
+		return words;
 	}
 
 	@Override
 	public List<List<String>> parserSentence(String sentence) throws NotParserTextException {
-		sentence = sentence.replaceAll("[@\"№#;$%^:&*()!?.]", ",");
+		sentence = sentence.replaceAll("[@\"№#;$%^:&*()!?.]+", ",");
 
 		List<List<String>> sentenceList = new LinkedList<>();
 
@@ -43,7 +43,10 @@ public class GParserImpl implements GraphematicParser {
 			basicsPhase = basicsPhase.trim();
 			if (!basicsPhase.isBlank()) {
 				try {
-					sentenceList.add(parserBasicsPhase(basicsPhase));
+					List<String> basicsPhaseParsed = parserBasicsPhase(basicsPhase);
+					if (!basicsPhaseParsed.isEmpty()) {
+						sentenceList.add(basicsPhaseParsed);
+					}
 				} catch (NotParserTextException ex) {
 //                    log.debug("Sentence = {}, exception: {}", sentence, ex.getMessage());
 				}
@@ -61,10 +64,13 @@ public class GParserImpl implements GraphematicParser {
 	public List<List<List<String>>> parserParagraph(String paragraph) throws NotParserTextException {
 		List<List<List<String>>> paragraphList = new LinkedList<>();
 
-		for (String sentence : paragraph.split("[@\"№#;$%^:&*()!?.]")) {
+		for (String sentence : paragraph.split("[@\"№#;$%^:&*()!?.]+")) {
 			if (!sentence.isBlank()) {
 				try {
-					paragraphList.add(parserSentence(sentence));
+					List<List<String>> sentenceParsed = parserSentence(sentence);
+					if (!sentenceParsed.isEmpty()) {
+						paragraphList.add(sentenceParsed);
+					}
 				} catch (NotParserTextException ex) {
 //                    log.debug("Paragraph = {}, exception: {}", sentence, ex.getMessage());
 				}
@@ -82,10 +88,13 @@ public class GParserImpl implements GraphematicParser {
 	public List<List<List<List<String>>>> parserText(String text) throws NotParserTextException {
 		List<List<List<List<String>>>> textList = new LinkedList<>();
 
-		for (String paragraph : text.split("[\\r\\n]")) {
+		for (String paragraph : text.split("[\\r\\n]+")) {
 			if (!paragraph.isBlank()) {
 				try {
-					textList.add(parserParagraph(paragraph));
+					List<List<List<String>>> paragraphParsed = parserParagraph(paragraph);
+					if (!paragraphParsed.isEmpty()) {
+						textList.add(paragraphParsed);
+					}
 				} catch (NotParserTextException ex) {
 //                    log.debug("Text = {}, exception: {}", text, ex.getMessage());
 				}
